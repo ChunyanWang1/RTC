@@ -46,7 +46,7 @@ we also release the masks predicted by this model:
 | Split | IoU | +CRF | result link |
 |:---:|:---:|:---:|:---:|
 | val | 65.34 | 67.20 | [val_results.tar](https://drive.google.com/file/d/1Vy9thpf3vMkSv5iQeugJVMPe0vbDStAx/view?usp=sharing) | 
-| test | 70.01 | 70.76 | [test_results.tar](https://drive.google.com/file/d/1TXNORaImcKqlX_Gbylg68UgaxxE7Oh-J/view?usp=sharing) |
+| test | 66.90 | 68.76 | [test_results.tar](https://drive.google.com/file/d/1TXNORaImcKqlX_Gbylg68UgaxxE7Oh-J/view?usp=sharing) |
 
 
 
