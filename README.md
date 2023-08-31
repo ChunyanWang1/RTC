@@ -32,7 +32,7 @@ Weakly-supervised image segmentation (WSIS) is a critical task in computer visio
    ```./VOC2012/SegmentationClassAug/xxxxxx.png```. 
 2. Download pre-trained models.
    Download the pretrained resnet38 weight: [ilsvrc-cls_rna-a1_cls1000_ep-0001.params](https://drive.google.com/file/d/1W6NJmhu77ZlXidvCEhEj5jHOIHo_oFKe/view?usp=sharing) (pre-trained on ImageNet)  and place them into 
-   `<project>/models/`.
+   `./models/`.
    
  
 
