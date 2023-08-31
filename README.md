@@ -21,7 +21,7 @@ Weakly-supervised image segmentation (WSIS) is a critical task in computer visio
 - torchvision
 - CUDA=11.0
 - pydensecrf from https://github.com/lucasb-eyer/pydensecrf
-- others (opencv-python etc.)
+- others (requirements.txt)
 
 
 ## Preparation
@@ -40,6 +40,13 @@ Weakly-supervised image segmentation (WSIS) is a critical task in computer visio
    | Backbone | Val | +CRF | weight link |
 |:---:|:---:|:---:|---:|
 | WideResNet38 | 65.34 | 67.20 | [rtc_contrast_best.pth](https://drive.google.com/file/d/1d_vTG6JII0Ab9ql3yYfGhuHOxaF_8aMw/view?usp=sharing) |
+
+we also release the masks predicted by this model:
+
+| Split | IoU | +CRF | result link |
+|:---:|:---:|:---:|:---:|
+| val | 65.34 | 67.20 | [val_results.tar](https://drive.google.com/file/d/1Vy9thpf3vMkSv5iQeugJVMPe0vbDStAx/view?usp=sharing) | 
+| test | 66.90 | 68.76 | [test_results.tar](https://drive.google.com/file/d/1TXNORaImcKqlX_Gbylg68UgaxxE7Oh-J/view?usp=sharing) |
 
 
 

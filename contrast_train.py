@@ -11,19 +11,12 @@ import argparse
 import importlib
 from tensorboardX import SummaryWriter
 import torch.nn.functional as F
-from network.myTool0 import compute_seg_label,compute_seg_loss
-
-#from utils.losses import DenseEnergyLoss, get_energy_loss
-#from network.tree_loss import TreeEnergyLoss
 from network.VARM import VARM
 from sklearn.metrics import average_precision_score
 from network.losses import refine_cams_with_bkg_v2,refine_cams_with_bkg_v1
 
 # from chainercv.datasets import VOCSemanticSegmentationDataset
 # from chainercv.evaluations import calc_semantic_segmentation_confusion
-# from tool import metric
-# from thop import profile
-# from thop import clever_format 
 
 CLASSES = [
         'aeroplane', 'bicycle', 'bird', 'boat', 'bottle', 
@@ -63,29 +56,6 @@ def normal(cam_rv_down,label,bg_threshold):
     scores = F.softmax(cam_rv_down * label, dim=1)
     pseudo_label = scores.argmax(dim=1, keepdim=True)
     return cam_rv_down,pseudo_label
-
-def  pseudo_gtmask(mask, cutoff_top=0.6, cutoff_low=0.2, eps=1e-8): #0.2
-    """Convert continuous mask into binary mask"""
-    bs,c,h,w = mask.size()
-    mask = mask.view(bs,c,-1)
-
-    # for each class extract the max confidence
-    mask_max, _ = mask.max(-1, keepdim=True)
-    mask_max[:, 0] *= 0.7 #0.7
-    mask_max[:, 1:] *= cutoff_top
-    #mask_max *= cutoff_top
-
-    # if the top score is too low, ignore it
-    lowest = torch.Tensor([cutoff_low]).type_as(mask_max)
-    mask_max = mask_max.max(lowest)
-
-    pseudo_gt = (mask > mask_max).type_as(mask)
-
-    # remove ambiguous pixels
-    ambiguous = (pseudo_gt.sum(1, keepdim=True) > 1).type_as(mask)
-    pseudo_gt = (1 - ambiguous) * pseudo_gt
-
-    return pseudo_gt.view(bs,c,h,w)
 
 def balanced_mask_loss_ce(mask,mask_gt, pseudo_gt, gt_labels,ignore_index=255):#
     mask = F.interpolate(mask, size=pseudo_gt.size()[-2:], mode="bilinear", align_corners=True)
@@ -192,15 +162,7 @@ def validate(model, data_loader):
             loss = F.multilabel_soft_margin_loss(cls_score[:,1:,:,:], label[:,1:,:,:])
             loss2 =F.multilabel_soft_margin_loss(cls_score2[:,1:,:,:], label[:,1:,:,:]) 
 
-            val_loss_meter.add({'val_loss': loss.item(),'val_loss2': loss2.item()}) #
-        
-    # confusion = calc_semantic_segmentation_confusion(preds, labels)
-    # gtj = confusion.sum(axis=1)
-    # resj = confusion.sum(axis=0)
-    # gtjresj = np.diag(confusion)
-    # denominator = gtj + resj - gtjresj
-    # iou = gtjresj / denominator
-    # print({'iou': iou, 'miou': np.nanmean(iou)})
+            val_loss_meter.add({'val_loss': loss.item(),'val_loss2': loss2.item()})
 
     model.train()
     print('val_cls_loss:', val_loss_meter.pop('val_loss'))
@@ -250,14 +212,6 @@ if __name__ == '__main__':
 
     model = getattr(importlib.import_module(args.network), 'Net')()
 
-    # # metric.cal_flops_params(model)
-    # # exit()
-    # dummy_input=torch.rand(1, 3, 448,448)#.cuda(0)
-    # flops,params=profile(model,inputs=(dummy_input,True))
-    # flops,params=clever_format([flops,params],'%.3f')
-    # print("params:",params)
-    # print("flops:", flops)
-    # exit()
 
     tblogger = SummaryWriter(args.tblog_dir)
 
@@ -410,10 +364,7 @@ if __name__ == '__main__':
                 cam_rv = F.interpolate(visualization.max_norm(cam_rv1_down)*label,#visualization.max_norm(cam_rv1_down)*label
                                     size=(448, 448),
                                     mode='bilinear',
-                                    align_corners=True) #* label
-                
-                # seg_label = refine_cams_with_bkg_v2(varm, img11.cuda(non_blocking=True), cams=cam_rv[:,1:], cls_labels=label_idx.cuda(non_blocking=True),
-                #                                       img_box=img_box)
+                                    align_corners=True)
 
                 seg_label = refine_cams_with_bkg_v1(varm, img11.cuda(non_blocking=True), cams=cam_rv[:,1:], cls_labels=label_idx.cuda(non_blocking=True),
                                                       img_box=img_box)
@@ -701,21 +652,9 @@ if __name__ == '__main__':
             print('')
             timer.reset_stage()
         
-        if ep>6:# and ep%2==0:
-                #miou = validate(model, infer_data_loader)
+        if ep>6:
                 validate(model, infer_data_loader)
-                #torch.save({'net':model.module.state_dict()}, os.path.join(args.session_name, 'ckpt', 'iter_' + str(optimizer.global_step) + '.pth'))
-                #if ep>12:
                 torch.save(model.module.state_dict(), os.path.join("save_pth_revise1_1",args.session_name + '_model_'+str(ep)+'.pth'))
-                # if miou > bestiou:
-                #     bestiou = miou
-                #     #torch.save({'net':model.module.state_dict()}, os.path.join("save_pth3",args.session_name, 'ckpt', 'best.pth'))
-                #     torch.save(model.module.state_dict(), os.path.join("save_pth3",args.session_name + '_ckpt_best.pth'))    
 
-        # if ep>6 and ep%2==0:
-        #     torch.save(model.module.state_dict(), os.path.join("save_pth3_2",args.session_name + '_model_'+str(ep)+'.pth'))
     
     print(args.session_name)
-    # print(args.session_name)
-
-    # torch.save(model.module.state_dict(), args.session_name + '.pth')
