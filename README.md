@@ -29,7 +29,6 @@ Weakly-supervised image segmentation (WSIS) is a critical task in computer visio
 1. Data preparation.
    Download PASCAL VOC 2012 devkit following instructions in http://host.robots.ox.ac.uk/pascal/VOC/voc2012/#devkit. 
    Then download the annotation of VOC 2012 trainaug set (containing 10582 images) from https://www.dropbox.com/s/oeu149j8qtbs1x0/SegmentationClassAug.zip?dl=0 and place them all as ```./VOC2012/SegmentationClassAug/xxxxxx.png```. 
-   Download the image-level labels ```cls_label.npy``` from https://github.com/YudeWang/SEAM/tree/master/voc12/cls_label.npy and place it into ```voc12/```.
 2. Download pre-trained models.
    Download the pretrained resnet38 weight: [ilsvrc-cls_rna-a1_cls1000_ep-0001.params](https://drive.google.com/file/d/1W6NJmhu77ZlXidvCEhEj5jHOIHo_oFKe/view?usp=sharing) (pre-trained on ImageNet)  and place them into `<project>/models/`.
    
