@@ -102,9 +102,6 @@ if __name__ == '__main__':
 
             bg_score = [np.ones_like(norm_cam[0]) * args.out_cam_pred_alpha]
             pred = np.argmax(np.concatenate((bg_score, norm_cam)), 0)
-            #norm_cam[0] = np.power(1 - np.max(norm_cam[1:,:,:], axis=0, keepdims=True), 3)
-            
-            pred=np.argmax(norm_cam,0)
             imageio.imsave(os.path.join(args.out_cam_pred, img_name + '.png'), pred.astype(np.uint8))
 
 
