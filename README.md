@@ -54,7 +54,7 @@ we also release the masks predicted by this model:
 ## Usage
 
 ### single-stage WSIS.
-1. Contrast train.
+1. Training. Here, $pretrained_model=models/[ilsvrc-cls_rna-a1_cls1000_ep-0001.params, $bs=8:
    ```
    python contrast_train.py  \
      --weights $pretrained_model \
@@ -63,7 +63,7 @@ we also release the masks predicted by this model:
      --batch_size $bs
    ```
 
-2. Contrast inference.
+2. Inference.
 
    Download the pretrained model from https://drive.google.com/file/d/1d_vTG6JII0Ab9ql3yYfGhuHOxaF_8aMw/view?usp=sharing, set ```--weights``` and then run:
    ```
