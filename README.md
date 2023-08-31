@@ -16,9 +16,9 @@ Weakly-supervised image segmentation (WSIS) is a critical task in computer visio
 
 
 ## Requirements
-- Python 3.6.9
+- Python=3.6.9
 - pytorch=1.7.0
-- torchvision
+- torchvision=0.8.1
 - CUDA=11.0
 - pydensecrf from https://github.com/lucasb-eyer/pydensecrf
 - others (requirements.txt)
