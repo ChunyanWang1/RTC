@@ -1,0 +1,3 @@
+python3 -u contrast_train.py  --batch_size 8  --max_epoches 25 --lr 0.01  --num_workers 16 --train_list voc12/train_aug.txt  --crop_size 448   --weights models/ilsvrc-cls_rna-a1_cls1000_ep-0001.params --voc12_root VOC2012  >>output_rtc_train.log 2>&1
+# python3 -u contrast_infer.py --weights save_pth_revise1_1/resnet38_contrast_revise1_model_23_best_result.pth --network network.resnet38_contrast_revise1_1 --infer_list voc12/val.txt --voc12_root VOC2012  --out_crf save/save_cam_revise1_1_pred_crf   >>output_wseg_train_revise1_1.log 2>&1
+# python3 -u eval.py  --predict_dir ./save/save_cam_revise1_1_pred_crf --list ./VOC2012/ImageSets/Segmentation/val.txt --comment resnet38_contrast  --type png >>output_wseg_train_revise1_1.log 2>&1
