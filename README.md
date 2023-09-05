@@ -101,7 +101,7 @@ we also release the masks predicted by this model:
 
 2. Inference. 
 
-   Check test configration in ```config.py``` (ckpt path, trained model: https://1drv.ms/u/s!AgGL9MGcRHv0mQgpb3QawPCsKPe9?e=4vly0H) and val/test set selection in ```test.py```.  Then run:
+   Check test configration in ```config.py``` and val/test set selection in ```test.py```.  Then run: <!-- (trained model: https://1drv.ms/u/s!AgGL9MGcRHv0mQgpb3QawPCsKPe9?e=4vly0H)-->
    ```
    python test.py
    ```
