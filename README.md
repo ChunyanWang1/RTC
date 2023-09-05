@@ -77,7 +77,7 @@ we also release the masks predicted by this model:
      --out_crf $your_crf_png_dir
    ```
 
-3. Evaluation.
+<!--3. Evaluation.
 
    Following SEAM, you can use ```--curve``` to select an optimial background threshold for val set.
    ```
@@ -88,7 +88,7 @@ we also release the masks predicted by this model:
      --comment $your_comments \
      --type $[npy | png] \
      --curve True
-   ```
+   ```  -->
 
 
 ### two-stage WSIS: Segmentation training with DeepLab
@@ -114,10 +114,10 @@ We sincerely thank [Ye Du](https://arxiv.org/abs/2110.07110) for his great work 
 
 <!-- ## Citation
 ```
-@inproceedings{du2021weakly,
-  title={Weakly Supervised Semantic Segmentation by Pixel-to-Prototype Contrast},
-  author={Du, Ye and Fu, Zehua and Liu, Qingjie and Wang, Yunhong},
-  booktitle={Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition},
-  year={2022}
+@inproceedings{xxx,
+  title={Boosting Weakly-Supervised Image Segmentation via Representation, Transform, and Compensator },
+  author={Chunyan Wang, Dong Zhang, Rui Yan},
+  booktitle={xxx},
+  year={2023}
 }
 ``` -->
