@@ -3,8 +3,7 @@
 This repository contains the official PyTorch implementation of the following paper:
 
 #### Boosting Weakly-Supervised Image Segmentation via Representation, Transform, and Compensator 
-Chunyan Wang, Dong Zhang, Rui Yan    
-Computer Science and Engineering, Nanjing University of Science and Technology
+Chunyan Wang, Dong Zhang, Rui Yan
 
 ## Abstract 
 <p align="justify">
